@@ -20,7 +20,7 @@ from torchvision import transforms
 
 from rounder import rounder
 import config
-
+import gdown
 from model import DRModel
 import torch
 import torch.nn 
@@ -47,9 +47,14 @@ if st.button("Predict on an image"):
         image1 = Image.open(image)
         model = DRModel(arch = config.arch, pre=False)
         #output = inference.inference(model, image)
-        model_path= config.MODEL_PATH
+        url = 'https://drive.google.com/uc?id=1FF9WwUzRMzqKm3iokw3dNSNLiHEKOkOz'
+        output = 'efficientnet_baseline.pth'
+        gdown.download(url,output,quiet=False)
+
+
+        #model_path= config.MODEL_PATH
         
-        model.load_state_dict(torch.load(model_path))
+        model.load_state_dict(torch.load(output))
         model.eval()
         #height, width = int(image.shape[0]), int(image.shape[1])
         #new_width = int((640 / height) * width)
